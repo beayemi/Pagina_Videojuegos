@@ -85,11 +85,18 @@ const Home = () => {
         throw new Error("API key is missing");
       }
       const randomPage = Math.floor(Math.random() * 3) + 1;
-      let url = `/api/games?key=${API_KEY}&ordering=-rating&page_size=20&page=${randomPage}&metacritic=85,100`;
+      // Se corrige la URL de la API
+      let url = `https://api.rawg.io/api/games?key=${API_KEY}&ordering=-rating&page_size=20&page=${randomPage}&metacritic=85,100`;
       console.log("Using API Key:", API_KEY); // Debug log
+      console.log("Fetching random hero game with URL:", url); // Debug log
       const resp = await fetch(url);
       if (!resp.ok) {
         throw new Error(`API request failed with status ${resp.status}`);
+      }
+      // Validación para evitar errores cuando se devuelve HTML en vez de JSON
+      const contentType = resp.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        throw new Error("Received non-JSON response");
       }
       const data = await resp.json();
       if (data.results && data.results.length > 0) {
@@ -121,7 +128,8 @@ const Home = () => {
       if (!API_KEY) {
         throw new Error("API key is missing");
       }
-      let url = `/api/games?key=${API_KEY}&ordering=${ordering}&page_size=${itemsPerPage}&page=${page}`;
+      // Se corrige la URL de la API
+      let url = `https://api.rawg.io/api/games?key=${API_KEY}&ordering=${ordering}&page_size=${itemsPerPage}&page=${page}`;
       if (search) url += `&search=${encodeURIComponent(search)}`;
       if (year) url += `&dates=${year}-01-01,${year}-12-31`;
       if (genre) url += `&genres=${getGenreSlug(genre)}`;
@@ -133,6 +141,11 @@ const Home = () => {
       const resp = await fetch(url);
       if (!resp.ok) {
         throw new Error(`API request failed with status ${resp.status}`);
+      }
+      // Validación para evitar errores cuando se devuelve HTML en vez de JSON
+      const contentType = resp.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        throw new Error("Received non-JSON response");
       }
       const data = await resp.json();
       console.log("API response data:", data); // Debug log
@@ -150,6 +163,8 @@ const Home = () => {
       setTotalPages(Math.min(computedTotalPages, 500));
     } catch (error) {
       console.error("Error al obtener juegos:", error);
+      // Se evita que la página se rompa si hay un error en la API
+      setGames([]);
     } finally {
       setLoading(false);
     }
