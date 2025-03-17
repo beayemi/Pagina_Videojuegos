@@ -1,13 +1,10 @@
-/* Contenedor principal */
+
 .gamedetail-container {
   margin: 0;
   padding: 0;
   width: 100%;
 }
 
-/* ===========================
-   Hero
-   =========================== */
 .hero-detail {
   position: relative;
   min-height: 60vh;
@@ -37,7 +34,6 @@
   color: #fff;
 }
 
-/* Contenedor del juego destacado */
 .hero-featured {
   max-width: 500px;
   margin: 1.5rem auto 0;
@@ -54,7 +50,6 @@
   font-weight: bold;
 }
 
-/* Filtros */
 .filter-card {
   border-radius: 10px;
   overflow: hidden;
@@ -64,7 +59,6 @@
   font-weight: 600;
 }
 
-/* Tarjeta oscura */
 .game-card-dark {
   background-color: #2b2b2b;
   color: #fff;
@@ -97,14 +91,14 @@
   transform: translateY(-3px);
 }
 
-/* Nombre del juego en dorado */
+
 .game-title {
   color: #ffd700;
   font-weight: 600;
   margin-bottom: 0.3rem;
 }
 
-/* Botón "pulse" */
+
 .animate-pulse {
   animation: pulse 1.5s infinite;
 }
@@ -114,7 +108,7 @@
   100% { transform: scale(1); }
 }
 
-/* Spinner */
+
 .spinner-grow {
   animation: spinnerGrow 1.2s linear infinite;
 }
@@ -124,7 +118,7 @@
   100% { transform: scale(0.6); }
 }
 
-/* Video Container */
+
 .video-container {
   position: relative;
   padding-bottom: 56.25%;
@@ -141,7 +135,6 @@
   border: 0;
 }
 
-/* Caja de descripción */
 .description-box {
   max-height: 300px;
   overflow-y: auto;
@@ -152,7 +145,6 @@
   color: #000;
 }
 
-/* Tarjetas recomendadas */
 .similar-card {
   position: relative;
   width: 100%;
@@ -210,7 +202,6 @@
   text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
 }
 
-/* Responsivo */
 @media (max-width: 768px) {
   .hero-home-title {
     font-size: 2.2rem;
