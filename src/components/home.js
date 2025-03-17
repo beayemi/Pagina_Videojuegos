@@ -58,7 +58,7 @@ function getGenreSlug(input) {
 }
 
 // API Key para RAWG (de variables de entorno o por defecto)
-const API_KEY = process.env.REACT_APP_RAWG_API_KEY || "377c3c7305d144a0b1d12c7816c1054c";
+const API_KEY = process.env.REACT_APP_RAWG_API_KEY || "13bc08315e3a4757ad7407884c68b1c1";
 
 // Componente principal Home
 const Home = () => {
@@ -81,9 +81,16 @@ const Home = () => {
   // Obtiene un juego aleatorio para la sección "hero"
   const fetchRandomHeroGame = useCallback(async () => {
     try {
+      if (!API_KEY) {
+        throw new Error("API key is missing");
+      }
       const randomPage = Math.floor(Math.random() * 3) + 1;
-      let url = `https://api.rawg.io/api/games?key=${API_KEY}&ordering=-rating&page_size=20&page=${randomPage}&metacritic=85,100`;
+      let url = `/api/games?key=${API_KEY}&ordering=-rating&page_size=20&page=${randomPage}&metacritic=85,100`;
+      console.log("Using API Key:", API_KEY); // Debug log
       const resp = await fetch(url);
+      if (!resp.ok) {
+        throw new Error(`API request failed with status ${resp.status}`);
+      }
       const data = await resp.json();
       if (data.results && data.results.length > 0) {
         const randomIndex = Math.floor(Math.random() * data.results.length);
@@ -111,15 +118,24 @@ const Home = () => {
   const fetchGames = useCallback(async (page = currentPage) => {
     setLoading(true);
     try {
-      let url = `https://api.rawg.io/api/games?key=${API_KEY}&ordering=${ordering}&page_size=${itemsPerPage}&page=${page}`;
+      if (!API_KEY) {
+        throw new Error("API key is missing");
+      }
+      let url = `/api/games?key=${API_KEY}&ordering=${ordering}&page_size=${itemsPerPage}&page=${page}`;
       if (search) url += `&search=${encodeURIComponent(search)}`;
       if (year) url += `&dates=${year}-01-01,${year}-12-31`;
       if (genre) url += `&genres=${getGenreSlug(genre)}`;
       if (platform) url += `&platforms=${getPlatformId(platform)}`;
       if (tag) url += `&tags=${tag}`;
       if (developer) url += `&developers=${developer}`;
+      console.log("Fetching games with URL:", url); // Debug log
+      console.log("Using API Key:", API_KEY); // Debug log
       const resp = await fetch(url);
+      if (!resp.ok) {
+        throw new Error(`API request failed with status ${resp.status}`);
+      }
       const data = await resp.json();
+      console.log("API response data:", data); // Debug log
       let results = data.results || [];
       if (search.trim() !== "") {
         const lowerSearch = search.trim().toLowerCase();

@@ -15,7 +15,7 @@ import { FaPlay } from 'react-icons/fa';
 import './gamedetail.css';
 
 // Variables de entorno
-const RAWG_API_KEY = process.env.REACT_APP_RAWG_API_KEY || "377c3c7305d144a0b1d12c7816c1054c";
+const RAWG_API_KEY = process.env.REACT_APP_RAWG_API_KEY || "13bc08315e3a4757ad7407884c68b1c1";
 const YOUTUBE_API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY || "AIzaSyBBZ_gCljRXU4PjJ0jDketduuNCbUTOl_w";
 const GOOGLE_TRANSLATE_API_KEY = process.env.REACT_APP_GOOGLE_TRANSLATE_API_KEY || "AIzaSyDPOsZQqiaB6x8rmtV-_yhHnUwldUoD2Dk";
 
