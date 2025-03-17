@@ -10,7 +10,6 @@ import {
   Button,
   Card,
   Pagination,
-  Spinner
 } from 'react-bootstrap';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import './home.css';
@@ -142,7 +141,7 @@ const Home = () => {
 
   // Carga datos al montar el componente
   useEffect(() => { fetchRandomHeroGame(); }, [fetchRandomHeroGame]);
-  useEffect(() => { fetchGames(); }, [currentPage, ordering]);
+  useEffect(() => { fetchGames(); }, [currentPage, ordering, fetchGames]);
 
   // Maneja el envío del formulario de filtros
   const handleSubmit = (e) => {
