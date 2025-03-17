@@ -108,7 +108,7 @@ const Home = () => {
   }, []);
 
   // Obtiene la lista de juegos según filtros y paginación
-  const fetchGames = async (page = currentPage) => {
+  const fetchGames = useCallback(async (page = currentPage) => {
     setLoading(true);
     try {
       let url = `https://api.rawg.io/api/games?key=${API_KEY}&ordering=${ordering}&page_size=${itemsPerPage}&page=${page}`;
@@ -137,7 +137,7 @@ const Home = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentPage, ordering, search, year, genre, platform, tag, developer, minRating]);
 
   // Carga datos al montar el componente
   useEffect(() => { fetchRandomHeroGame(); }, [fetchRandomHeroGame]);
